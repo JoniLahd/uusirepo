@@ -31,4 +31,25 @@ function handleCellClick(event) {
       [0, 4, 8],
       [2, 4, 6]
     ];
-  
+  //Käydään läpi voittotilanteet
+  for (const condition of winConditions) {
+    //Haetaan pelitilan arvot voittoriviltä
+    const [a, b, c] = condition.map(index => gameState[index]);
+    //tarkistetaan onko voittorivillä kaikki arvot samat (ei-null)
+    if (a !== null && a === b && b === c) {
+        //näyttää voitto ilmoituksen pelaajalle ja päivittää tilan eli kuka voitti ja samalla käynnistää pelin uudelleen
+        alert(`Player ${currentPlayer} wins!`);
+        updateStatus();
+       
+        return; //keskeyttää funktion, koska peli päättyi
+    }
+  }
+  // Jos kaikki solut ovat täynnä, mutta voittoriviä ei löytynyt, kyseessä on tasapeli
+  if (!gameState.includes(null)) {
+    // Näytää tasapeli-ilmoitus ja päivitää tilan(updateStatus())
+    alert('It\'s a draw!');
+    updateStatus();
+   
+    return; //keskeyttää funktion, koska peli päättyi
+  }
+}
