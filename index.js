@@ -53,3 +53,20 @@ function handleCellClick(event) {
     return; //keskeyttää funktion, koska peli päättyi
   }
 }
+//Määritetään restartGame-funktio, joka palauttaa pelitilan oletusarvoihin, tyhjentää laudan ja päivittää tilan.
+function restartGame() {
+    gameState = Array(9).fill(null);
+    cells.forEach(cell => cell.textContent = '');
+    currentPlayer = 'X';
+    updateStatus();
+  }
+  
+  //Määritetään updateStatus-funktio, joka päivittää tilaelementin(eli kenen vuoro on) pelaajille
+  function updateStatus() {
+    status.textContent = `It's ${currentPlayer}'s turn.`;
+  }
+  //Liitetään EventListenert soluihin ja restart painikkeeseen, jotka kutsuvat handleCellClick- ja restartGame-funktioita vastaavasti.
+  cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+  restartBtn.addEventListener('click', restartGame);
+  updateStatus();
+  
